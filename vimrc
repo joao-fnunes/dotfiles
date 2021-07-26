@@ -140,7 +140,7 @@ augroup END
 
 " Airline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1 " sudo apt-get install fonts-powerline
 let g:airline_theme='dark'
 " let g:airline#extensions#syntastic#enabled = 1
 set laststatus=2
@@ -159,5 +159,5 @@ set confirm
 
 set wildmode=longest:full,full
 
-set background=dark " Fixes unreadable colors in dark blackground (dark blue).
+"set background=dark " Fixes unreadable colors in dark blackground (dark blue).
 
