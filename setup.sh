@@ -25,3 +25,6 @@ link zshrc ~/.zshrc
 
 mkdir -p ~/.config/nvim
 link init.vim ~/.config/nvim/init.vim
+
+mkdir -p ~/.ssh
+link ssh-agent-thing ~/.ssh-agent-thing
