@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/jp/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -114,19 +114,21 @@ if [[ ! "$SSH_AUTH_SOCK" ]]; then
 fi
 
 # luarocks
-export LUA_PATH='/home/jp/.luarocks/share/lua/5.3/?.lua;/home/jp/.luarocks/share/lua/5.3/?/init.lua;/usr/share/lua/5.3/?.lua;/usr/share/lua/5.3/?/init.lua;/usr/lib/lua/5.3/?.lua;/usr/lib/lua/5.3/?/init.lua;./?.lua;./?/init.lua'
-export LUA_CPATH='/home/jp/.luarocks/lib/lua/5.3/?.so;/usr/lib/lua/5.3/?.so;/usr/lib/lua/5.3/loadall.so;./?.so'
+export LUA_PATH='$HOME/.luarocks/share/lua/5.3/?.lua;$HOME/.luarocks/share/lua/5.3/?/init.lua;/usr/share/lua/5.3/?.lua;/usr/share/lua/5.3/?/init.lua;/usr/lib/lua/5.3/?.lua;/usr/lib/lua/5.3/?/init.lua;./?.lua;./?/init.lua'
+export LUA_CPATH='$HOME/.luarocks/lib/lua/5.3/?.so;/usr/lib/lua/5.3/?.so;/usr/lib/lua/5.3/loadall.so;./?.so'
 
-PATH="/home/jp/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/jp/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/jp/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/jp/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/jp/perl5"; export PERL_MM_OPT;
+PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 # Add custom bin in front (initially needed by rtags)
 export PATH="$HOME/bin:$PATH"
 
-source ~/projects/git-subrepo/.rc
+if [ -f ~/projects/git-subrepo/.rc ]; then
+	source ~/projects/git-subrepo/.rc
+fi
 
 fpath=(~/.zsh/completion $fpath)
 fpath=('~/projects/git-subrepo/share/zsh-completion' $fpath)
