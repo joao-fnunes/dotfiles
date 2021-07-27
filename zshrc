@@ -123,8 +123,9 @@ PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
 PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
-# Add custom bin in front (initially needed by rtags)
-export PATH="$HOME/bin:$PATH"
+# ~/bin: add custom bin in front (initially needed by rtags)
+# ~/.local/bin: originally added because of ansible installation through pip3
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 if [ -f ~/projects/git-subrepo/.rc ]; then
 	source ~/projects/git-subrepo/.rc
