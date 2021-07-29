@@ -159,5 +159,5 @@ set confirm
 
 set wildmode=longest:full,full
 
-"set background=dark " Fixes unreadable colors in dark blackground (dark blue).
+set background=dark " Fixes unreadable colors in dark blackground (dark blue).
 
