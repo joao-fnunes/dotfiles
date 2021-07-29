@@ -30,3 +30,5 @@ mkdir -p ~/.ssh
 link ssh-agent-thing ~/.ssh-agent-thing
 
 link screenrc ~/.screenrc
+
+link gitconfig ~/.gitconfig
