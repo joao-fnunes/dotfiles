@@ -125,7 +125,8 @@ PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
 
 # ~/bin: add custom bin in front (initially needed by rtags)
 # ~/.local/bin: originally added because of ansible installation through pip3
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+# /usr/lib/llvm-8/bin: from package clang-8
+export PATH="$HOME/bin:$HOME/.local/bin:/usr/lib/llvm-8/bin:$PATH"
 
 if [ -f ~/projects/git-subrepo/.rc ]; then
 	source ~/projects/git-subrepo/.rc

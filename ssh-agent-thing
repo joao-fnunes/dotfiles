@@ -9,7 +9,7 @@ function start_agent {
 	chmod 600 "${SSH_ENV}"
 	. "${SSH_ENV}" > /dev/null
 	# add keys here
-	ssh-add ~/.ssh/id_rsa
+	find ~/.ssh -maxdepth 1 -type f -name 'id_*' | grep -v '\.pub$' | xargs ssh-add
 }
 
 if [ -f "${SSH_ENV}" ]; then
