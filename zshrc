@@ -139,3 +139,5 @@ unsetopt share_history
 
 autoload -Uz compinit && compinit -i
 
+PROMPT='%{$fg[yellow]%}[%D{%H:%M:%S}] '$PROMPT
+
