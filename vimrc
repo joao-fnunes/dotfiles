@@ -1,104 +1,99 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+let s:vundlepath='~/.vim/bundle/Vundle.vim'
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+if isdirectory(glob(s:vundlepath))
+  " set the runtime path to include Vundle and initialize
+  set rtp+=~/.vim/bundle/Vundle.vim
+  call vundle#begin()
+  " alternatively, pass a path where Vundle should install plugins
+  "call vundle#begin('~/some/path/here')
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
+  " let Vundle manage Vundle, required
+  Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'airblade/vim-gitgutter'
-Plugin 'editorconfig/editorconfig-vim'
-"Plugin 'itchyny/lightline.vim' " Conflicts with airline
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-" Plugin 'mattn/emmet-vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-surround'
-" Plugin 'w0rp/ale'
+  " The following are examples of different formats supported.
+  " Keep Plugin commands between vundle#begin/end.
+  " plugin on GitHub repo
+  Plugin 'tpope/vim-fugitive'
+  " plugin from http://vim-scripts.org/vim/scripts.html
 
-" Adds :BD for deleting buffer without closing window.
-Plugin 'qpkorr/vim-bufkill' 
+  " Plugin 'L9'
+  " Git plugin not hosted on GitHub
+  " Plugin 'git://git.wincent.com/command-t.git'
+  " git repos on your local machine (i.e. when working on your own plugin)
+  " Plugin 'file:///home/gmarik/path/to/plugin'
+  " The sparkup vim script is in a subdirectory of this repo called vim.
+  " Pass the path to set the runtimepath properly.
+  " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+  " Install L9 and avoid a Naming conflict if you've already installed a
+  " different version somewhere else.
+  " Plugin 'ascenator/L9', {'name': 'newL9'}
 
-" tagbar
-Plugin 'majutsushi/tagbar'
+  Plugin 'airblade/vim-gitgutter'
+  Plugin 'editorconfig/editorconfig-vim'
+  "Plugin 'itchyny/lightline.vim' " Conflicts with airline
+  Plugin 'junegunn/fzf'
+  Plugin 'junegunn/fzf.vim'
+  " Plugin 'mattn/emmet-vim'
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'terryma/vim-multiple-cursors'
+  Plugin 'tpope/vim-eunuch'
+  Plugin 'tpope/vim-surround'
+  " Plugin 'w0rp/ale'
 
-" Cscope
-" Plugin 'gnattishness/cscope_maps'
-" Plugin 'cscope.vim' Has better :cw integration but messes up tags. Use rtags
-" instead.
+  " Adds :BD for deleting buffer without closing window.
+  Plugin 'qpkorr/vim-bufkill'
 
-" A (switch between source and header)
-Plugin 'a.vim'
+  " tagbar
+  Plugin 'majutsushi/tagbar'
 
-" Plugin 'file:///home/jp/projects/filter-graph.vim'
+  " Cscope
+  " Plugin 'gnattishness/cscope_maps'
+  " Plugin 'cscope.vim' Has better :cw integration but messes up tags. Use rtags
+  " instead.
 
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'zchee/deoplete-clang'
+  " A (switch between source and header)
+  Plugin 'a.vim'
 
-Plugin 'lyuts/vim-rtags'
+  " Plugin 'file:///home/jp/projects/filter-graph.vim'
 
-Plugin 'henrik/vim-indexed-search'
+  Plugin 'Shougo/deoplete.nvim'
+  Plugin 'zchee/deoplete-clang'
 
-Plugin 'sakhnik/nvim-gdb'
-" Plugin 'cpiger/NeoDebug'
+  Plugin 'lyuts/vim-rtags'
 
-" Plugin 'Valloric/YouCompleteMe'
+  Plugin 'henrik/vim-indexed-search'
 
-Plugin 'vim-airline/vim-airline'
+  Plugin 'sakhnik/nvim-gdb'
+  " Plugin 'cpiger/NeoDebug'
 
-Plugin 'ctrlpvim/ctrlp.vim'
+  " Plugin 'Valloric/YouCompleteMe'
 
-Plugin 'rodjek/vim-puppet'
+  Plugin 'vim-airline/vim-airline'
 
-Plugin 'PProvost/vim-ps1'
+  Plugin 'ctrlpvim/ctrlp.vim'
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+  Plugin 'rodjek/vim-puppet'
 
-" Custom
+  Plugin 'PProvost/vim-ps1'
+
+  " All of your Plugins must be added before the following line
+  call vundle#end()            " required
+
+endif
+
+filetype plugin indent on      " required
+
 set incsearch
 set hlsearch
 set number
-syntax on
+syntax enable
 
 let c_space_errors = 1
 colorscheme peachpuff
-hi Search cterm=NONE ctermfg=black ctermbg=yellow
+highlight Search cterm=NONE ctermfg=black ctermbg=yellow
 
 set mouse=a
 
@@ -115,27 +110,27 @@ set updatetime=100
 
 " fgraph
 if has('nvim')
-	if exists('vim.fgraph')
-		lua fgraph = require "vim.fgraph"
-		lua fgraph.load("callgraph")
-		nnoremap <c-b>c :lua fgraph.draw()<cr>
-		nnoremap <c-b>v :lua fgraph.draw{children = true}<cr>
-		command! -nargs=? FGraph :lua fgraph.draw{max_depth = <args>}
-		command! -nargs=? FGraphChildren :lua fgraph.draw{max_depth = <args>, children = true}
-	endif
+  if exists('vim.fgraph')
+    lua fgraph = require "vim.fgraph"
+    lua fgraph.load("callgraph")
+    nnoremap <c-b>c :lua fgraph.draw()<cr>
+    nnoremap <c-b>v :lua fgraph.draw{children = true}<cr>
+    command! -nargs=? FGraph :lua fgraph.draw{max_depth = <args>}
+    command! -nargs=? FGraphChildren :lua fgraph.draw{max_depth = <args>, children = true}
+  endif
 endif
 
 " NERDTree
 function! NERDTreeFindIfOpen()
-	if exists("g:NERDTree") && g:NERDTree.IsOpen()
-		NERDTreeFind
-	endif
+  if exists("g:NERDTree") && g:NERDTree.IsOpen()
+    NERDTreeFind
+  endif
 endfunction
 
 augroup vimrc
-	" Remove all vimrc autocommands
-	autocmd!
-	" autocmd BufWinEnter * call NERDTreeFindIfOpen()
+  " Remove all vimrc autocommands
+  autocmd!
+  " autocmd BufWinEnter * call NERDTreeFindIfOpen()
 augroup END
 
 " Airline
@@ -149,15 +144,23 @@ set laststatus=2
 let g:ctrlp_by_filename=1
 
 " Buffers
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
-nnoremap <C-X> :BD<CR>
+nnoremap <tab> :bnext<CR>
+nnoremap <s-tab> :bprevious<CR>
+nnoremap <c-b><c-x> :BD<CR>
 nnoremap <c-b><c-b> :CtrlPBuffer<CR>
+
+" Indentation
+set expandtab
+set shiftwidth=2
+set tabstop=2
+set smartindent
+set autoindent
+
+" Highlight whitespace
+set list listchars=tab:»·,trail:·
 
 set hidden
 set confirm
-
 set wildmode=longest:full,full
-
 set background=dark " Fixes unreadable colors in dark blackground (dark blue).
 
