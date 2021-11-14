@@ -1,0 +1,26 @@
+---
+- name: Install dotfiles
+  hosts: all
+
+  tasks:
+  - name: Create directories
+    file:
+      path: "{{ item }}"
+      state: directory
+    loop:
+    - ~/.config
+    - ~/.config/nvim
+    - ~/.ssh
+
+  - name: Create links
+    file:
+      src: "{{ playbook_dir }}/{{ item.src }}"
+      dest: "{{ item.dest }}"
+      state: link
+    loop:
+    - { src: 'vimrc', dest: '~/.vimrc' }
+    - { src: 'zshrc', dest: '~/.zshrc' }
+    - { src: 'init.vim', dest: '~/.config/nvim/init.vim' }
+    - { src: 'ssh-agent.sh', dest: '~/.ssh-agent.sh' }
+    - { src: 'screenrc', dest: '~/.screenrc' }
+    - { src: 'gitconfig', dest: '~/.gitconfig' }

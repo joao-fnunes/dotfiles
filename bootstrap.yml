@@ -1,0 +1,55 @@
+---
+- name: Bootstrap system
+  hosts: all
+
+  tasks:
+  - name: Install packages
+    become: true
+    package:
+      state: latest
+      name:
+      - zsh
+      - vim
+      - git
+      - python
+      - screen
+      - reptyr
+      - fonts-powerline
+      - mlocate
+      - dnsutils
+      - net-tools
+
+  # Oh My Zsh (https://ohmyz.sh)
+  - name: Get Oh My Zsh installation directory
+    stat:
+      path: "~/.oh-my-zsh"
+    register: ohmyzsh_stat
+
+  - name: Install Oh My Zsh
+    block:
+    - name: Download Oh My Zsh installation script
+      get_url:
+        url: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+        dest: /tmp/install-ohmyzsh.sh
+        mode: '0760'
+
+    - name: Run Oh My Zsh installation script
+      shell: /tmp/install-ohmyzsh.sh
+    when: not ohmyzsh_stat.stat.exists
+
+  # Vundle (https://github.com/VundleVim/Vundle.vim)
+  - name: Get Vundle installation directory
+    stat:
+      path: "~/.vim/bundle/Vundle.vim"
+    register: vundle_stat
+
+  - name: Install Vundle
+    block:
+      - name: Download Vundle repo
+        git:
+          repo: https://github.com/VundleVim/Vundle.vim.git
+          dest: '~/.vim/bundle/Vundle.vim'
+
+      - name: Install Vundle plugins
+        shell: vim +PluginInstall +qa
+    when: not vundle_stat.stat.exists
