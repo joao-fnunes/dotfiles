@@ -11,5 +11,5 @@ git clone git@github.com:joao-fnunes/dotfiles.git
 
 cd dotfiles
 
-ansible-playbook --connection local -i 127.0.0.1, bootstrap.yml --ask-become-pass
-ansible-playbook --connection local -i 127.0.0.1, install.yml
+make bootstrap
+make install

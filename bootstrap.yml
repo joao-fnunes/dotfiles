@@ -53,3 +53,22 @@
       - name: Install Vundle plugins
         shell: vim +PluginInstall +qa
     when: not vundle_stat.stat.exists
+
+  # gdb-dashboard https://github.com/cyrus-and/gdb-dashboard
+  - name: Get gdb-dashboard file
+    stat:
+      path: "~/.gdb-dashboard"
+    register: gdbdashboard_stat
+
+  - name: Install gdb-dashboard
+    block:
+    - name: Download gdb-dashboard
+      get_url:
+        url: https://raw.githubusercontent.com/cyrus-and/gdb-dashboard/master/.gdbinit
+        dest: ~/.gdb-dashboard
+        mode: '0664'
+
+    - name: Install pygments
+      pip:
+        name: pygments
+    when: not gdbdashboard_stat.stat.exists

@@ -24,3 +24,4 @@
     - { src: 'ssh-agent.sh', dest: '~/.ssh-agent.sh' }
     - { src: 'screenrc', dest: '~/.screenrc' }
     - { src: 'gitconfig', dest: '~/.gitconfig' }
+    - { src: 'gdbinit', dest: '~/.gdbinit' }
