@@ -9,7 +9,7 @@
       state: latest
       name:
       - zsh
-      - vim
+      - neovim
       - git
       - python
       - screen
@@ -72,3 +72,15 @@
       pip:
         name: pygments
     when: not gdbdashboard_stat.stat.exists
+
+- name: Set up zsh for user
+  hosts: localhost
+  become: no
+  vars:
+    the_user: "{{ ansible_user_id }}"
+  tasks:
+    - name: Change user shell to zsh
+      become: yes
+      user:
+        name: "{{ the_user }}"
+        shell: /bin/zsh

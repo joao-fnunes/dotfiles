@@ -12,6 +12,17 @@
     - ~/.config/nvim
     - ~/.ssh
 
+  - name: Get ~/.zshrc file stat
+    stat:
+      path: ~/.zshrc
+    register: zshrc_stat
+
+  - name: Remove ~/.zshrc if it's not a link
+    file:
+      path: ~/.zshrc
+      state: absent
+    when: zshrc_stat.stat.islnk is not defined or not zshrc_stat.stat.islnk
+
   - name: Create links
     file:
       src: "{{ playbook_dir }}/{{ item.src }}"

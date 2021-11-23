@@ -11,5 +11,6 @@ git clone https://github.com/joao-fnunes/dotfiles.git
 
 cd dotfiles
 
+export PATH="/home/$USER/.local/bin:$PATH"
 make bootstrap
 make install
