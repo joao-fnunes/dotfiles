@@ -71,6 +71,7 @@
     - name: Install pygments
       pip:
         name: pygments
+        executable: pip3
     when: not gdbdashboard_stat.stat.exists
 
 - name: Set up zsh for user
