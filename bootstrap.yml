@@ -31,11 +31,24 @@
       get_url:
         url: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
         dest: /tmp/install-ohmyzsh.sh
-        mode: '0760'
+        mode: "0760"
 
     - name: Run Oh My Zsh installation script
       shell: /tmp/install-ohmyzsh.sh
     when: not ohmyzsh_stat.stat.exists
+
+  # Powerlevel10k (https://github.com/romkatv/powerlevel10k)
+  - name: Get Powerlevel10k installation directory
+    stat:
+      path: "~/.oh-my-zsh/custom/themes/powerlevel10k"
+    register: p10k_stat
+
+  - name: Install Powerlevel10k
+    git:
+      repo: https://github.com/romkatv/powerlevel10k.git
+      dest: "~/.oh-my-zsh/custom/themes/powerlevel10k"
+      depth: 1
+    when: not p10k_stat.stat.exists
 
   # Vundle (https://github.com/VundleVim/Vundle.vim)
   - name: Get Vundle installation directory
@@ -48,7 +61,8 @@
       - name: Download Vundle repo
         git:
           repo: https://github.com/VundleVim/Vundle.vim.git
-          dest: '~/.vim/bundle/Vundle.vim'
+          dest: "~/.vim/bundle/Vundle.vim"
+          depth: 1
 
       - name: Install Vundle plugins
         shell: vim +PluginInstall +qa
@@ -66,7 +80,7 @@
       get_url:
         url: https://raw.githubusercontent.com/cyrus-and/gdb-dashboard/master/.gdbinit
         dest: ~/.gdb-dashboard
-        mode: '0664'
+        mode: "0664"
 
     - name: Install pygments
       pip:

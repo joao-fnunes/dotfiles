@@ -37,3 +37,4 @@
     - { src: 'gitconfig', dest: '~/.gitconfig' }
     - { src: 'gdbinit', dest: '~/.gdbinit' }
     - { src: 'robbyrussell.zsh-theme', dest: '~/.oh-my-zsh/custom/themes/robbyrussell.zsh-theme' }
+    - { src: 'p10k.zsh', dest: '~/.p10k.zsh' }
