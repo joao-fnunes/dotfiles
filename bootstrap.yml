@@ -14,7 +14,6 @@
       - python
       - screen
       - reptyr
-      - fonts-powerline
       - mlocate
       - dnsutils
       - net-tools
@@ -65,7 +64,7 @@
           depth: 1
 
       - name: Install Vundle plugins
-        shell: vim +PluginInstall +qa
+        shell: nvim +PluginInstall +qa
     when: not vundle_stat.stat.exists
 
   # gdb-dashboard https://github.com/cyrus-and/gdb-dashboard

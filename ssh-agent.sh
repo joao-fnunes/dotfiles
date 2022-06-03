@@ -14,11 +14,15 @@ function start_agent {
   find ~/.ssh -maxdepth 1 -type f -name 'id_*' | grep -v '\.pub$' | xargs ssh-add
 }
 
-if [ -f "${SSH_ENV}" ]; then
+if [[ "$SSH_AUTH_SOCK" != "" ]]; then
+  echo "SSH_AUTH_SOCK defined (agent forwarding)"
+  SSH_AGENT_PID=${SSH_AUTH_SOCK#*agent.}
+  SSH_AGENT_PNAME='sshd'
+elif [ -f "${SSH_ENV}" ]; then
   . "${SSH_ENV}" > /dev/null
-  ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-    start_agent;
-  }
-else
-  start_agent;
+  SSH_AGENT_PNAME='ssh-agent$'
 fi
+
+([[ "$SSH_AGENT_PID" != "" ]] && ps -ef | grep ${SSH_AGENT_PID} | grep "$SSH_AGENT_PNAME" > /dev/null) || {
+  start_agent;
+}
