@@ -14,8 +14,13 @@ function start_agent {
   find ~/.ssh -maxdepth 1 -type f -name 'id_*' | grep -v '\.pub$' | xargs ssh-add
 }
 
-if [[ "$SSH_AUTH_SOCK" != "" ]]; then
-  echo "SSH_AUTH_SOCK defined (agent forwarding)"
+if [ ! -z $STY ]; then
+  echo "Running inside screen: attaching to an existing agent"
+  export SSH_AUTH_SOCK=$(find /tmp -maxdepth 2 -type s -name "agent*" -user $USER -printf '%T@ %p\n' 2>/dev/null |sort -n|tail -1|cut -d' ' -f2)
+  SSH_AGENT_PID=${SSH_AUTH_SOCK#*agent.}
+  SSH_AGENT_PNAME='sshd'
+elif [[ "$SSH_AUTH_SOCK" != "" ]]; then
+  echo "SSH_AUTH_SOCK defined ($SSH_AUTH_SOCK): using forwarded agent"
   SSH_AGENT_PID=${SSH_AUTH_SOCK#*agent.}
   SSH_AGENT_PNAME='sshd'
 elif [ -f "${SSH_ENV}" ]; then
