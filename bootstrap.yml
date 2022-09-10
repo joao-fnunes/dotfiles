@@ -17,6 +17,7 @@
       - mlocate
       - dnsutils
       - net-tools
+      - tmux
 
   # Oh My Zsh (https://ohmyz.sh)
   - name: Get Oh My Zsh installation directory

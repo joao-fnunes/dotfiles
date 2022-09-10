@@ -14,8 +14,8 @@ function start_agent {
   find ~/.ssh -maxdepth 1 -type f -name 'id_*' | grep -v '\.pub$' | xargs ssh-add
 }
 
-if [ ! -z $STY ]; then
-  echo "Running inside screen: attaching to an existing agent"
+if [[ ! -z $STY || ! -z $TMUX ]]; then
+  echo "Running inside screen or tmux: attaching to an existing agent"
   export SSH_AUTH_SOCK=$(find /tmp -maxdepth 2 -type s -name "agent*" -user $USER -printf '%T@ %p\n' 2>/dev/null |sort -n|tail -1|cut -d' ' -f2)
   SSH_AGENT_PID=${SSH_AUTH_SOCK#*agent.}
   SSH_AGENT_PNAME='sshd'
