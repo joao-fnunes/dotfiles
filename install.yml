@@ -34,6 +34,7 @@
     - { src: 'init.vim', dest: '~/.config/nvim/init.vim' }
     - { src: 'ssh-agent.sh', dest: '~/.ssh-agent.sh' }
     - { src: 'screenrc', dest: '~/.screenrc' }
+    - { src: 'tmux.conf', dest: '~/.tmux.conf' }
     - { src: 'gitconfig', dest: '~/.gitconfig' }
     - { src: 'gdbinit', dest: '~/.gdbinit' }
     - { src: 'robbyrussell.zsh-theme', dest: '~/.oh-my-zsh/custom/themes/robbyrussell.zsh-theme' }
