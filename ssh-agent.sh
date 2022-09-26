@@ -26,8 +26,9 @@ elif [[ "$SSH_AUTH_SOCK" != "" ]]; then
 elif [ -f "${SSH_ENV}" ]; then
   . "${SSH_ENV}" > /dev/null
   SSH_AGENT_PNAME='ssh-agent$'
+
+  ([[ "$SSH_AGENT_PID" != "" ]] && ps -ef | grep ${SSH_AGENT_PID} | grep "$SSH_AGENT_PNAME" > /dev/null) || {
+    start_agent;
+  }
 fi
 
-([[ "$SSH_AGENT_PID" != "" ]] && ps -ef | grep ${SSH_AGENT_PID} | grep "$SSH_AGENT_PNAME" > /dev/null) || {
-  start_agent;
-}

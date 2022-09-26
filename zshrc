@@ -118,12 +118,6 @@ alias vim=lvim
 export LUA_PATH='$HOME/.luarocks/share/lua/5.3/?.lua;$HOME/.luarocks/share/lua/5.3/?/init.lua;/usr/share/lua/5.3/?.lua;/usr/share/lua/5.3/?/init.lua;/usr/lib/lua/5.3/?.lua;/usr/lib/lua/5.3/?/init.lua;./?.lua;./?/init.lua'
 export LUA_CPATH='$HOME/.luarocks/lib/lua/5.3/?.so;/usr/lib/lua/5.3/?.so;/usr/lib/lua/5.3/loadall.so;./?.so'
 
-PATH="$HOME/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"$HOME/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"; export PERL_MM_OPT;
-
 # Default installation path, workaround for "libhostfxr.so could not be found" error.
 export DOTNET_ROOT=$HOME/.dotnet
 
@@ -136,11 +130,9 @@ _dotnet_zsh_complete()
 }
 compctl -K _dotnet_zsh_complete dotnet
 
-# ~/bin: add custom bin in front (initially needed by rtags)
-# ~/.local/bin: originally added because of ansible installation through pip3
-# /usr/lib/llvm-8/bin: from package clang-8
-# ~/.dotnet/tools: for tool installed through `dotnet tool install --global`
-export PATH="$HOME/bin:/usr/lib/llvm-8/bin:$PATH:$HOME/.local/bin:$HOME/.dotnet/tools"
+if [[ ! `echo $PATH | grep "^$HOME/.local/bin"` ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
 
 if [ -f ~/projects/git-subrepo/.rc ]; then
   source ~/projects/git-subrepo/.rc
