@@ -3,7 +3,7 @@
 SSH_ENV=$HOME/.ssh/environment
 
 # start the ssh-agent
-function start_agent {
+function start_ssh_agent {
   echo "Initializing new SSH agent..."
   # spawn ssh-agent
   /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
@@ -28,7 +28,7 @@ elif [ -f "${SSH_ENV}" ]; then
   SSH_AGENT_PNAME='ssh-agent$'
 
   ([[ "$SSH_AGENT_PID" != "" ]] && ps -ef | grep ${SSH_AGENT_PID} | grep "$SSH_AGENT_PNAME" > /dev/null) || {
-    start_agent;
+    # start_ssh_agent;
   }
 fi
 
