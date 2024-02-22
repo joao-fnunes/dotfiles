@@ -11,7 +11,7 @@
       - zsh
       - neovim
       - git
-      - python
+      - python3
       - screen
       - reptyr
       - mlocate
