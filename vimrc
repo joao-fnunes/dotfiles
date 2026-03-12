@@ -88,11 +88,11 @@ filetype plugin indent on      " required
 
 set incsearch
 set hlsearch
-set number
+set number relativenumber
 syntax enable
 
 let c_space_errors = 1
-colorscheme peachpuff
+" colorscheme peachpuff
 highlight Search cterm=NONE ctermfg=black ctermbg=yellow
 
 set mouse=a
@@ -163,4 +163,8 @@ set hidden
 set confirm
 set wildmode=longest:full,full
 set background=dark " Fixes unreadable colors in dark blackground (dark blue).
+
+" NOTE: Setting clipboard=unnamedplus instead would make all yanks go to the
+" system clipboard instead
+set clipboard+=unnamedplus
 
