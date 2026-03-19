@@ -1,4 +1,4 @@
-# PowerShell profile for tmux directory tracking (OSC 7)
+# PowerShell profile for tmux directory tracking
 #
 # Link or source this file from your PowerShell profile (i.e., $PROFILE):
 #   $env:userprofile\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
@@ -7,18 +7,19 @@
 #   . "C:\path\to\dotfiles\profile.ps1"
 
 function prompt {
-    # Build OSC 7 escape sequence so tmux can track the current working directory
     $loc = $executionContext.SessionState.Path.CurrentLocation
+
+    # Write WSL-equivalent path for tmux to read when splitting panes
     $p = "$loc" -replace '\\', '/'
     if ($p -match '^([A-Za-z]):(.*)') {
         $p = "/mnt/$($Matches[1].ToLower())$($Matches[2])"
     }
-    $osc7 = "`e]7;file://localhost$p`a"
+    try { [IO.File]::WriteAllText("$env:USERPROFILE\.tmux_pwsh_cwd", $p) } catch {}
 
     $branch = git rev-parse --abbrev-ref HEAD 2>$null
     if ($branch) {
-        "${osc7}PS $loc [$branch]`r`n❯ "
+        "PS $loc [$branch]`r`n❯ "
     } else {
-        "${osc7}PS $loc`r`n❯ "
+        "PS $loc`r`n❯ "
     }
 }

@@ -16,5 +16,3 @@ PowerShell profile:
 # Add this line to $PROFILE (typically ~\Documents\PowerShell\Microsoft.PowerShell_profile.ps1)
 . "C:\path\to\dotfiles\profile.ps1"
 ```
-
-Requires **tmux 3.3+** for native OSC 7 support.
