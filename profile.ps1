@@ -23,3 +23,9 @@ function prompt {
         "PS $loc`r`n❯ "
     }
 }
+
+function acp {
+	agency copilot --mcp 'ado --organization msazure' @args
+}
+
+Set-Alias -Name vim -Value nvim
