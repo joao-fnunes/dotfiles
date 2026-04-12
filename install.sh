@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 source /etc/os-release
 
 if [[ $ID == "arch" ]]; then
   sudo pacman -Sy python3 python3-pip ansible git make
-elif [[ $ID == "ubuntu" ]]
+elif [[ $ID == "ubuntu" ]]; then
   sudo apt update
   sudo apt install -y python3 python3-pip ansible git make
 else
