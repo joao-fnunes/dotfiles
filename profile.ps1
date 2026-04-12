@@ -1,31 +1,37 @@
 # PowerShell profile for tmux directory tracking
 #
-# Link or source this file from your PowerShell profile (i.e., $PROFILE):
-#   $env:userprofile\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
+# Source this file from your PowerShell profile ($PROFILE):
+#   . "C:\path\to\pwsh-tmux\profile.ps1"
 #
-# Example (add to your profile):
-#   . "C:\path\to\dotfiles\profile.ps1"
+# This wraps your existing prompt — whatever prompt you had before
+# (oh-my-posh, starship, custom, or the default) is preserved.
+
+# Capture the current prompt before we replace it
+$__pwshTmux_OriginalPrompt = (Get-Item function:prompt).ScriptBlock
+$__pwshTmux_LastCwd = $null
 
 function prompt {
-    $loc = $executionContext.SessionState.Path.CurrentLocation
-
-    # Write WSL-equivalent path for tmux to read when splitting panes
-    $p = "$loc" -replace '\\', '/'
-    if ($p -match '^([A-Za-z]):(.*)') {
-        $p = "/mnt/$($Matches[1].ToLower())$($Matches[2])"
+    # When the directory changes, store the WSL-equivalent path as a per-pane
+    # tmux user option so splits/new-windows open in the correct directory.
+    $cwd = $executionContext.SessionState.Path.CurrentLocation.Path
+    if ($cwd -ne $script:__pwshTmux_LastCwd) {
+        $script:__pwshTmux_LastCwd = $cwd
+        $p = $cwd -replace '\\', '/'
+        if ($p -match '^([A-Za-z]):(.*)') {
+            $p = "/mnt/$($Matches[1].ToLower())$($Matches[2])"
+        }
+        if ($env:TMUX_PANE) {
+            # Fire-and-forget: don't block the prompt waiting for wsl.exe
+            try {
+                $psi = [Diagnostics.ProcessStartInfo]::new('wsl.exe',
+                    "-e tmux -L pwsh set-option -p -t $($env:TMUX_PANE) @pwsh_cwd `"$p`"")
+                $psi.CreateNoWindow = $true
+                $psi.UseShellExecute = $false
+                $null = [Diagnostics.Process]::Start($psi)
+            } catch {}
+        }
     }
-    try { [IO.File]::WriteAllText("$env:USERPROFILE\.tmux_pwsh_cwd", $p) } catch {}
 
-    $branch = git rev-parse --abbrev-ref HEAD 2>$null
-    if ($branch) {
-        "PS $loc [$branch]`r`n❯ "
-    } else {
-        "PS $loc`r`n❯ "
-    }
+    # Delegate to the original prompt
+    & $__pwshTmux_OriginalPrompt
 }
-
-function acp {
-	agency copilot --mcp 'ado --organization msazure' @args
-}
-
-Set-Alias -Name vim -Value nvim
