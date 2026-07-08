@@ -71,6 +71,9 @@ auto-installs any missing plugins, so no separate install step is required (the
 bootstrap scripts run a best-effort `nvim --headless "+Lazy! sync" +qa` to
 pre-warm it). Add plugins by dropping a new spec file in `nvim/lua/plugins/`.
 
+See [`nvim/PLUGINS.md`](nvim/PLUGINS.md) for a full list of the installed
+plugins, how each is loaded, and the key mappings they add.
+
 Shared editor settings still live in `vimrc`. **Plain vim** keeps using
 [Vundle](https://github.com/VundleVim/Vundle.vim) — its plugin block is gated
 behind `!has('nvim')`, so Neovim sources the settings but manages plugins with
