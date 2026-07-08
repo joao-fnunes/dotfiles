@@ -109,7 +109,7 @@ return {
         map("K", vim.lsp.buf.hover, "Hover docs")
         map("<leader>rn", vim.lsp.buf.rename, "Rename symbol")
         map("<leader>ca", vim.lsp.buf.code_action, "Code action")
-        map("<leader>d", vim.diagnostic.open_float, "Line diagnostics")
+        map("<leader>cd", vim.diagnostic.open_float, "Line diagnostics")
         map("[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Prev diagnostic")
         map("]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next diagnostic")
 
