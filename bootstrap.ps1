@@ -124,6 +124,9 @@ $WingetCore = @(
     # Build / native dev
     'Kitware.CMake',
     'LLVM.LLVM',
+    # CLI search tools (used by Neovim/Telescope for find-files & live-grep)
+    'BurntSushi.ripgrep.MSVC',
+    'sharkdp.fd',
     # Cloud / DevOps
     'Microsoft.AzureCLI',
     'Docker.DockerDesktop',
