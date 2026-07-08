@@ -23,6 +23,12 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Make a C compiler discoverable before any plugin build runs (install steps
+-- fire during lazy.setup when `install.missing` pulls new plugins). See
+-- config/toolchain.lua -- on Windows this surfaces the bundled LLVM clang so
+-- nvim-treesitter can compile parsers.
+require("config.toolchain").setup()
+
 -- All plugin specs are auto-imported from lua/plugins/. Missing plugins are
 -- installed automatically on startup.
 require("lazy").setup({
