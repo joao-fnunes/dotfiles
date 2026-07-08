@@ -411,7 +411,8 @@ function Set-Links {
     New-DotfileLink -Source (Join-Path $DotfilesRoot 'gitconfig') -Target (Join-Path $home_ '.gitconfig')
     New-DotfileLink -Source (Join-Path $DotfilesRoot 'vimrc')     -Target (Join-Path $home_ '_vimrc')
     New-DotfileLink -Source (Join-Path $DotfilesRoot 'vimrc')     -Target (Join-Path $home_ '.vimrc')
-    New-DotfileLink -Source (Join-Path $DotfilesRoot 'init.vim')  -Target (Join-Path $localAppData 'nvim\init.vim')
+    # Whole Neovim config dir (init.lua + lua/) is linked; lazy.nvim manages plugins.
+    New-DotfileLink -Source (Join-Path $DotfilesRoot 'nvim')      -Target (Join-Path $localAppData 'nvim')
 }
 
 function Set-PsProfileStub {
@@ -448,6 +449,28 @@ function Set-PsProfileStub {
 }
 
 # ===========================================================================
+# 6. Neovim plugins (lazy.nvim)
+# ===========================================================================
+function Install-NvimPlugins {
+    Write-Step 'Pre-installing Neovim plugins (lazy.nvim)'
+
+    # lazy.nvim self-installs on first `nvim` launch, so this is best-effort:
+    # it just pre-warms the install and generates lazy-lock.json. `nvim` may not
+    # be on PATH yet if it was installed by winget in this same session.
+    if (-not (Get-Command nvim -ErrorAction SilentlyContinue)) {
+        Write-Warn2 'nvim not found on PATH — skipping. lazy.nvim will self-install on first nvim launch.'
+        return
+    }
+
+    try {
+        & nvim --headless '+Lazy! sync' +qa
+        Write-Ok 'lazy.nvim sync complete'
+    } catch {
+        Write-Warn2 "lazy.nvim sync failed: $($_.Exception.Message). It will self-install on first nvim launch."
+    }
+}
+
+# ===========================================================================
 # Main
 # ===========================================================================
 Write-Host "Dotfiles bootstrap (Windows)" -ForegroundColor Magenta
@@ -456,6 +479,7 @@ Write-Host "Repo root: $DotfilesRoot"
 if ($LinksOnly) {
     Set-Links
     Set-PsProfileStub
+    Install-NvimPlugins
 } else {
     Install-WingetPackages
     Install-Wsl
@@ -463,6 +487,7 @@ if ($LinksOnly) {
     Install-VsCodeExtensions
     Set-Links
     Set-PsProfileStub
+    Install-NvimPlugins
 }
 
 Write-Host ""

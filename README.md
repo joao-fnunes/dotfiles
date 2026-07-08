@@ -27,7 +27,7 @@ Python, CMake, LLVM, Docker Desktop, VS Code + Insiders, Neovim, Windows
 Terminal, PowerShell 7, Azure CLI, GitHub CLI, Copilot CLI, psmux, etc.) via
 **winget**, sets up **WSL + Ubuntu**, installs the PowerShell modules used by
 `profile.ps1`, installs the VS Code extension set, and links the dotfiles
-(`gitconfig`, `vimrc`, `init.vim`) into your home folder.
+(`gitconfig`, `vimrc`, and the Neovim config directory) into your home folder.
 
 Optional heavy packages (Visual Studio 2022 Enterprise, Windows SDK,
 Wireshark, Unity Hub, Cosmos DB Emulator, Vagrant, Dr. Memory, Azure VPN
@@ -50,6 +50,31 @@ packages:
 ```powershell
 pwsh -File .\bootstrap.ps1 -LinksOnly
 ```
+
+## Neovim (lazy.nvim)
+
+Neovim uses [**lazy.nvim**](https://github.com/folke/lazy.nvim) for plugin
+management. The whole `nvim/` directory in this repo is symlinked to Neovim's
+config location (`~/.config/nvim` on Linux, `%LocalAppData%\nvim` on Windows):
+
+```
+nvim/
+├── init.lua                # sources ~/.vimrc for shared settings, then loads lazy
+├── lua/
+│   ├── config/lazy.lua     # bootstraps lazy.nvim + loads plugin specs
+│   └── plugins/*.lua       # one file per plugin spec
+└── lazy-lock.json          # pinned plugin versions (committed)
+```
+
+lazy.nvim self-installs into `stdpath("data")` on first `nvim` launch and
+auto-installs any missing plugins, so no separate install step is required (the
+bootstrap scripts run a best-effort `nvim --headless "+Lazy! sync" +qa` to
+pre-warm it). Add plugins by dropping a new spec file in `nvim/lua/plugins/`.
+
+Shared editor settings still live in `vimrc`. **Plain vim** keeps using
+[Vundle](https://github.com/VundleVim/Vundle.vim) — its plugin block is gated
+behind `!has('nvim')`, so Neovim sources the settings but manages plugins with
+lazy.nvim instead. lazy.nvim requires Neovim >= 0.8.
 
 ## PowerShell profile (tmux directory tracking)
 

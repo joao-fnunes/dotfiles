@@ -3,7 +3,10 @@ filetype off                  " required
 
 let s:vundlepath='~/.vim/bundle/Vundle.vim'
 
-if isdirectory(glob(s:vundlepath))
+" Vundle manages plugins for plain vim only. Neovim skips this block (see
+" `!has('nvim')`) and manages plugins with lazy.nvim instead, while still
+" sourcing the rest of this file for shared editor settings.
+if !has('nvim') && isdirectory(glob(s:vundlepath))
   " set the runtime path to include Vundle and initialize
   set rtp+=~/.vim/bundle/Vundle.vim
   call vundle#begin()
@@ -88,6 +91,8 @@ filetype plugin indent on      " required
 
 set incsearch
 set hlsearch
+set ignorecase
+set smartcase
 set number relativenumber
 syntax enable
 

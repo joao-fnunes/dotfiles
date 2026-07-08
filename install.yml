@@ -9,7 +9,6 @@
       state: directory
     loop:
     - ~/.config
-    - ~/.config/nvim
     - ~/.ssh
 
   - name: Get ~/.zshrc file stat
@@ -23,6 +22,20 @@
       state: absent
     when: zshrc_stat.stat.islnk is not defined or not zshrc_stat.stat.islnk
 
+  - name: Get ~/.config/nvim stat
+    stat:
+      path: ~/.config/nvim
+    register: nvim_cfg_stat
+
+  # The whole Neovim config dir is a symlink into this repo (init.lua + lua/).
+  # If a previous install left a real directory there, remove it so the link
+  # can be created (mirrors the ~/.zshrc handling above).
+  - name: Remove ~/.config/nvim if it's not a link
+    file:
+      path: ~/.config/nvim
+      state: absent
+    when: nvim_cfg_stat.stat.exists and (nvim_cfg_stat.stat.islnk is not defined or not nvim_cfg_stat.stat.islnk)
+
   - name: Create links
     file:
       src: "{{ playbook_dir }}/{{ item.src }}"
@@ -31,7 +44,7 @@
     loop:
     - { src: 'vimrc', dest: '~/.vimrc' }
     - { src: 'zshrc', dest: '~/.zshrc' }
-    - { src: 'init.vim', dest: '~/.config/nvim/init.vim' }
+    - { src: 'nvim', dest: '~/.config/nvim' }
     - { src: 'ssh-agent.sh', dest: '~/.ssh-agent.sh' }
     - { src: 'screenrc', dest: '~/.screenrc' }
     - { src: 'tmux.conf', dest: '~/.tmux.conf' }
@@ -39,3 +52,10 @@
     - { src: 'gdbinit', dest: '~/.gdbinit' }
     - { src: 'robbyrussell.zsh-theme', dest: '~/.oh-my-zsh/custom/themes/robbyrussell.zsh-theme' }
     - { src: 'p10k.zsh', dest: '~/.p10k.zsh' }
+
+  # Pre-warm lazy.nvim (bootstrap + install starter plugins) now that the config
+  # is linked. Best-effort: lazy.nvim also self-installs on first nvim launch.
+  - name: Pre-install Neovim plugins with lazy.nvim
+    ansible.builtin.command: nvim --headless "+Lazy! sync" +qa
+    changed_when: false
+    failed_when: false

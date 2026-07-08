@@ -51,7 +51,33 @@
       depth: 1
     when: not p10k_stat.stat.exists
 
-  # Vundle (https://github.com/VundleVim/Vundle.vim)
+  # lazy.nvim (Neovim's plugin manager) requires Neovim >= 0.8. Some apt repos
+  # (older Ubuntu) ship an older neovim; warn so the user can install a newer
+  # source (unstable PPA or AppImage). Non-fatal.
+  - name: Get Neovim version
+    ansible.builtin.command: nvim --version
+    register: nvim_version
+    changed_when: false
+    failed_when: false
+
+  - name: Warn if Neovim is too old for lazy.nvim
+    ansible.builtin.debug:
+      msg: >-
+        Neovim appears older than 0.8 ({{ nvim_version.stdout_lines[0] | default('unknown') }}).
+        lazy.nvim requires >= 0.8 — install a newer neovim (unstable PPA or AppImage).
+    when:
+      - nvim_version.rc == 0
+      - nvim_version.stdout is search('NVIM v0\.[0-7]\.')
+
+  # Vundle (https://github.com/VundleVim/Vundle.vim) — plain vim only. Neovim
+  # uses lazy.nvim, so Vundle plugins are installed with `vim`, and only when a
+  # `vim` binary is actually present.
+  - name: Check for a plain vim binary
+    ansible.builtin.command: which vim
+    register: vim_bin
+    changed_when: false
+    failed_when: false
+
   - name: Get Vundle installation directory
     stat:
       path: "~/.vim/bundle/Vundle.vim"
@@ -66,8 +92,10 @@
           depth: 1
 
       - name: Install Vundle plugins
-        shell: nvim +PluginInstall +qa
-    when: not vundle_stat.stat.exists
+        shell: vim +PluginInstall +qa
+    when:
+      - not vundle_stat.stat.exists
+      - vim_bin.rc == 0
 
   # gdb-dashboard https://github.com/cyrus-and/gdb-dashboard
   - name: Get gdb-dashboard file
