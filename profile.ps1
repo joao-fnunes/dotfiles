@@ -56,6 +56,11 @@ Set-PSReadlineKeyHandler -Key ctrl+d -Function DeleteCharOrExit
 
 Set-Alias -Name vim -Value nvim
 
+# clangd compile_commands.json generator. Kept here (in dotfiles) so it works
+# across every git worktree without committing it into each repo. Runs against
+# whatever worktree you're currently in.
+Set-Alias -Name Generate-ClangdDatabase -Value "$PSScriptRoot\Generate-ClangdDatabase.ps1"
+
 . $PSScriptRoot\tmux_profile.ps1
 
 # Lazy-load git-completion: only imported on first git <Tab>
