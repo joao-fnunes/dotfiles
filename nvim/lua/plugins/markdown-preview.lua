@@ -11,11 +11,24 @@
 --
 -- Lazy-loaded on the preview commands and the markdown filetype. `<leader>mp`
 -- (leader is Space) toggles the preview from within a markdown buffer.
+--
+-- By default the preview's github-style CSS caps the content container at 900px
+-- (#page-ctn in the plugin's page.css), which wastes most of a widescreen
+-- monitor. The plugin has no width option, and g:mkdp_markdown_css *replaces*
+-- the content stylesheet rather than extending it, so assets/mkdp-markdown.css
+-- is a copy of that stylesheet with a width override appended. Point the plugin
+-- at it here. stdpath("config") is the nvim config dir, which is a symlink into
+-- this repo (see install.yml), so this resolves to nvim/assets/... on every
+-- platform. The variable is read by the preview server at request time, so
+-- setting it in init (before the plugin loads) is sufficient.
 return {
   "iamcco/markdown-preview.nvim",
   cmd = { "MarkdownPreview", "MarkdownPreviewStop", "MarkdownPreviewToggle" },
   ft = { "markdown" },
   build = "cd app && npx --yes yarn install",
+  init = function()
+    vim.g.mkdp_markdown_css = vim.fs.joinpath(vim.fn.stdpath("config"), "assets", "mkdp-markdown.css")
+  end,
   keys = {
     {
       "<leader>mp",
