@@ -1,0 +1,8 @@
+# Enforce LF line endings so Unix tools (tmux, zsh, vim/nvim, make, ssh) never
+# receive CRLF when these dotfiles are used on WSL/Linux. This overrides a
+# Windows core.autocrlf=true checkout, which would otherwise produce CRLF and
+# silently break tmux (it errors on the stray \r and falls back to defaults).
+* text=auto eol=lf
+
+# Windows-only PowerShell scripts keep CRLF.
+*.ps1 text eol=crlf
