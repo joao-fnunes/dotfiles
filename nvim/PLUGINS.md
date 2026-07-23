@@ -53,6 +53,7 @@ Linux/macOS and on Windows machines that already expose a compiler.
 | `<leader>b` | buffer | bufferline, bufdelete |
 | `<leader>x` | diagnostics | trouble |
 | `<leader>d` | debug | nvim-dap / nvim-dap-ui |
+| `<leader>q` | session | persistence |
 
 Several `<C-b>…` chords and other keys are carried over from the plain-vim
 config so muscle memory still works (see the reference table at the end).
@@ -97,6 +98,7 @@ tree-sitter parser upstream, so `.ps1` keeps vim's regex syntax.)
 | [aerial.nvim](https://github.com/stevearc/aerial.nvim) | Symbol outline (functions/classes) from LSP or tree-sitter. | tagbar | `:AerialToggle`, keys |
 | [which-key.nvim](https://github.com/folke/which-key.nvim) | Popup cheatsheet of mappings following a prefix. | — | `VeryLazy` |
 | [bufdelete.nvim](https://github.com/famiu/bufdelete.nvim) | Delete a buffer without closing its window/split. | vim-bufkill (`:BD`) | `:Bdelete`, keys |
+| [persistence.nvim](https://github.com/folke/persistence.nvim) | Saves your editing session (buffers, splits, tab pages, cwd, folds) per project directory on quit; restore on demand. | `:mksession` | `BufReadPre`, keys |
 
 ## Editing
 
@@ -190,6 +192,14 @@ Buffer-local LSP maps are active only where a language server is attached.
 | `<C-b><C-x>` / `<leader>bd` | Delete buffer (keep window) |
 | `<Tab>` / `<S-Tab>` | Next / previous buffer (from vimrc) |
 | `<leader>?` | Show buffer keymaps (which-key) |
+
+### Session (persistence)
+
+| Key | Action |
+| --- | --- |
+| `<leader>qs` | Restore session for the current directory |
+| `<leader>ql` | Restore the last session |
+| `<leader>qd` | Stop saving the current session |
 
 ### Editing
 
