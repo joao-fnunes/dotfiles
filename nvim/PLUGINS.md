@@ -105,6 +105,7 @@ tree-sitter parser upstream, so `.ps1` keeps vim's regex syntax.)
 | [nvim-surround](https://github.com/kylechui/nvim-surround) | Add/change/delete surrounding pairs (`ys`/`cs`/`ds`). | vim-surround | `BufReadPre`, `BufNewFile` |
 | [nvim-autopairs](https://github.com/windwp/nvim-autopairs) | Auto-insert/delete matching brackets & quotes (tree-sitter aware). | — | `InsertEnter` |
 | [vim-visual-multi](https://github.com/mg979/vim-visual-multi) | Sublime-style multiple cursors (`<C-n>`). | vim-multiple-cursors | `BufReadPre`, `BufNewFile` |
+| [flash.nvim](https://github.com/folke/flash.nvim) | Jump anywhere on screen with search labels; also a Treesitter-node selector and a motion in operator/visual modes (`s`/`S`/`r`/`R`). | vim-easymotion, vim-sneak | `VeryLazy`, keys |
 
 ## Git
 
@@ -196,6 +197,10 @@ Buffer-local LSP maps are active only where a language server is attached.
 | --- | --- |
 | `ys{motion}{char}` / `cs` / `ds` | Add / change / delete surround |
 | `<C-n>` | Multiple cursors: select word, repeat to add cursor |
+| `s` | Flash jump: type target chars, then the shown label |
+| `S` | Flash Treesitter: label surrounding nodes to select |
+| `r` / `R` | Remote flash (operator) / Treesitter search (operator/visual) |
+| `<C-s>` | Toggle flash labels during a `/` search |
 
 ### Git
 
