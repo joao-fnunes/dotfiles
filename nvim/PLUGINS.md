@@ -48,7 +48,7 @@ Linux/macOS and on Windows machines that already expose a compiler.
 | Prefix | Group | Used by |
 | --- | --- | --- |
 | `<leader>f` | find | telescope |
-| `<leader>g` | git | diffview, neogit |
+| `<leader>g` | git | diffview-plus, neogit |
 | `<leader>c` | code | LSP (code action, diagnostics, clangd switch) |
 | `<leader>b` | buffer | bufferline, bufdelete |
 | `<leader>x` | diagnostics | trouble |
@@ -115,7 +115,7 @@ tree-sitter parser upstream, so `.ps1` keeps vim's regex syntax.)
 | Plugin | What it does | Replaces | Loads on |
 | --- | --- | --- | --- |
 | [gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim) | Inline gutter signs for added/changed/removed lines; hunk staging. | vim-gitgutter | `BufReadPre`, `BufNewFile` |
-| [diffview.nvim](https://github.com/sindrets/diffview.nvim) | Full-window git diff, merge-conflict and file-history UI. | — | `:Diffview…`, keys |
+| [diffview-plus.nvim](https://github.com/dlyongemallo/diffview-plus.nvim) | Full-window git diff, merge-conflict and file-history UI. Actively maintained fork of sindrets/diffview.nvim. | — | `:Diffview…`, keys |
 | [neogit](https://github.com/NeogitOrg/neogit) | Magit-style interactive git UI (stage/commit/branch/push/pull/rebase). | vim-fugitive | `:Neogit`, keys |
 
 ## Debugging
@@ -143,7 +143,7 @@ These are pulled in by the plugins above and are not configured directly:
 
 | Plugin | Required by |
 | --- | --- |
-| [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) | telescope, neo-tree, diffview, neogit |
+| [plenary.nvim](https://github.com/nvim-lua/plenary.nvim) | telescope, neo-tree, diffview-plus, neogit |
 | [nui.nvim](https://github.com/MunifTanjim/nui.nvim) | neo-tree |
 | [nvim-web-devicons](https://github.com/nvim-tree/nvim-web-devicons) | neo-tree, lualine, bufferline, aerial, trouble, render-markdown |
 | [mason-lspconfig.nvim](https://github.com/mason-org/mason-lspconfig.nvim) | nvim-lspconfig |
