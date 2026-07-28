@@ -124,6 +124,9 @@ $WingetCore = @(
     # Build / native dev
     'Kitware.CMake',
     'LLVM.LLVM',
+    # tree-sitter CLI: nvim-treesitter's `main` branch shells out to
+    # `tree-sitter build` to compile every parser (see nvim/lua/plugins/treesitter.lua).
+    'tree-sitter.tree-sitter-cli',
     # CLI search tools (used by Neovim/Telescope for find-files & live-grep)
     'BurntSushi.ripgrep.MSVC',
     'sharkdp.fd',
