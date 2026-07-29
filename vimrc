@@ -154,6 +154,18 @@ nnoremap <s-tab> :bprevious<CR>
 nnoremap <c-b><c-x> :BD<CR>
 nnoremap <c-b><c-b> :CtrlPBuffer<CR>
 
+" Window/split navigation. Ctrl+hjkl jumps straight to the split in that
+" direction -- one chord instead of <C-w>h/j/k/l. Ctrl is deliberately the
+" *editor* layer: tmux drives its panes with prefix-free Alt+hjkl (see
+" tmux.conf), so Ctrl stays inside vim/nvim and the two never collide. This
+" works identically on Linux and on Windows nvim.exe (pure editor mapping, no
+" dependency on tmux forwarding keys in). Trade-off: <C-l> no longer redraws
+" the screen -- use :redraw / :nohlsearch if needed.
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+
 " Indentation
 set expandtab
 set shiftwidth=2

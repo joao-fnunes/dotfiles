@@ -93,7 +93,6 @@ tree-sitter parser upstream, so `.ps1` keeps vim's regex syntax.)
 | Plugin | What it does | Replaces | Loads on |
 | --- | --- | --- | --- |
 | [neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim) | File explorer sidebar; follows the current file and watches the filesystem. | NERDTree | `:Neotree`, keys |
-| [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator) | Move between Neovim splits and tmux panes with one set of keys (`<M-hjkl>`), crossing the editor/tmux boundary seamlessly. Pairs with the vim-aware `M-hjkl` bindings in [`tmux.conf`](../tmux.conf). | `<C-w>hjkl` | keys (`<M-hjkl>`) |
 | [lualine.nvim](https://github.com/nvim-lualine/lualine.nvim) | Statusline themed to match the colorscheme; single global statusline. | vim-airline | `VeryLazy` |
 | [bufferline.nvim](https://github.com/akinsho/bufferline.nvim) | Open buffers as tabs with LSP diagnostic counts. | airline tabline | `VeryLazy` |
 | [aerial.nvim](https://github.com/stevearc/aerial.nvim) | Symbol outline (functions/classes) from LSP or tree-sitter. | tagbar | `:AerialToggle`, keys |
@@ -185,7 +184,7 @@ Buffer-local LSP maps are active only where a language server is attached.
 
 | Key | Action |
 | --- | --- |
-| `<M-h>` / `<M-j>` / `<M-k>` / `<M-l>` | Move to the split/tmux pane left / down / up / right (seamless across Neovim & tmux) |
+| `<C-h>` / `<C-j>` / `<C-k>` / `<C-l>` | Move to the split left / down / up / right (from vimrc; tmux panes use `M-hjkl`) |
 | `<C-b><C-t>` | File explorer: toggle |
 | `<C-b><C-f>` | File explorer: reveal current file |
 | `<leader>e` | File explorer: toggle |
